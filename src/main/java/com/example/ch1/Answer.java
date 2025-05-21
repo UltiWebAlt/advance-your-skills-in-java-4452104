@@ -17,10 +17,11 @@ class Answer {
     // Return the highest grade for the students with a specific major
     static int findAnswer(List<Student> students, String major) {
         // Your code goes here.
-        List<Student> result = students.stream()
-                .filter(s -> s.getMajor() == major)
-                .sorted(s -> s.grades.get("major"));
-        return 0;
+        return students.stream()
+                .filter(s -> s.getMajor().equals(major))
+                .flatMap(s -> s.getGrades().values().stream())
+                .max(Integer::compareTo).orElseGet(() -> 0);
+
     }
 
     public static void main(String[] args) {
@@ -31,6 +32,7 @@ class Answer {
                 new Student("Jessica", "Rodriguez", "Mathematics", Map.of("Algorithms", 85, "Data Structures", 80, "Calculus", 89)));
         String major = "Computer Science";
         int result = findAnswer(students, major);
+        System.out.println(result);
     }
 }
 
