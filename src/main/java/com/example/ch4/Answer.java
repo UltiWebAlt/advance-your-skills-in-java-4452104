@@ -26,7 +26,7 @@ class Answer {
 				Future<Map.Entry<Integer, BigInteger>> mapItem = executor.submit(task);
 				result.put(mapItem.get().getKey(), mapItem.get().getValue());
 			} catch (InterruptedException | RuntimeException | ExecutionException e) {
-				throw new RuntimeException(e);
+				e.printStackTrace();
 			}
 		}
 		executor.shutdown();
@@ -37,11 +37,12 @@ class Answer {
 		List<Integer> numbers = Arrays.asList(5, 10, 15, 20, 25, 30);
 		Map<Integer, BigInteger> result = Answer.findAnswer(numbers);
 		Long startTime = System.currentTimeMillis();
+		System.out.println();
 		for ( Map.Entry<Integer, BigInteger> entry : result.entrySet()) {
 			System.out.println("Factorial of " + entry.getKey() + " is " + String.format("%,d", entry.getValue()));
 		}
 		Long endTime = System.currentTimeMillis();
-		System.out.println("Elapsed time: " + (endTime - startTime) + " ms");
+		System.out.println("\nElapsed time: " + (endTime - startTime) + " ms");
 	}
 }
 
